@@ -1,23 +1,35 @@
 ﻿@page "/todo"
 @using BlazorDemo.Shared
+@using lib12.Extensions
 
-<h1>Simple todo app:</h1>
+<h1>Simple todo app (@todos.Count(x => !x.Done)/@todos.Count):</h1>
 
 <ul>
-    @foreach (var todoItem in todos)
+    @foreach (var todoItem in todos.Where(x => !x.Done))
     {
-        <li>@todoItem.Text</li>
+        <li>
+            <input type="checkbox" bind="@todoItem.Done" />
+            @todoItem.Text
+        </li>
     }
 </ul>
 
 <div>
-    <input placeholder="New task" type="text" />
-    <button>Add task</button>
+    <input placeholder="New todo" type="text" bind="@newTodo" />
+    <button onclick="@AddTodo">Add todo</button>
 </div>
 
 @functions
 {
-    private List<TodoItem> todos = new List<TodoItem>();
+private List<TodoItem> todos = new List<TodoItem>();
+private string newTodo;
 
+private void AddTodo()
+{
+    if (newTodo.IsNullOrEmpty())
+        return;
 
+    todos.Add(new TodoItem { Text = newTodo });
+    newTodo = string.Empty;
+}
 }
