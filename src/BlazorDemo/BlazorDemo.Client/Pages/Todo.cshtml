@@ -1,5 +1,23 @@
 ﻿@page "/todo"
+@using BlazorDemo.Shared
 
 <h1>Simple todo app:</h1>
 
-<
+<ul>
+    @foreach (var todoItem in todos)
+    {
+        <li>@todoItem.Text</li>
+    }
+</ul>
+
+<div>
+    <input placeholder="New task" type="text" />
+    <button>Add task</button>
+</div>
+
+@functions
+{
+    private List<TodoItem> todos = new List<TodoItem>();
+
+
+}
