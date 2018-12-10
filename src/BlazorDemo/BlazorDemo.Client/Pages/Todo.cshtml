@@ -21,15 +21,16 @@
 
 @functions
 {
-private List<TodoItem> todos = new List<TodoItem>();
-private string newTodo;
+    private List<TodoItem> todos = new List<TodoItem>();
+    private string newTodo;
 
-private void AddTodo()
-{
-    if (newTodo.IsNullOrEmpty())
-        return;
+    private void AddTodo()
+    {
+        if (newTodo.IsNullOrEmpty())
+            return;
 
-    todos.Add(new TodoItem { Text = newTodo });
-    newTodo = string.Empty;
-}
+        JsInterop.Log($"Creating todo - {newTodo}");
+        todos.Add(new TodoItem { Text = newTodo });
+        newTodo = string.Empty;
+    }
 }
